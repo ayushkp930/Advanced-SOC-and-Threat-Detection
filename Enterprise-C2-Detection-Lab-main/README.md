@@ -12,7 +12,7 @@ This repository documents a comprehensive Purple Teaming laboratory exercise foc
 ---
 
 ## 🏗️ Lab Architecture
-- **Attacker Machine:** Kali Linux (IP: `192.168.56.1`)
+- **Attacker Machine:** Kali Linux (IP: `192.168.xx.x`)
 - **Victim Machine:** Windows 10 x64 (IP: `192.168.56.101`)
 - **Network Configuration:** Host-Only Adapter (Isolated Environment)
 - **Tools Utilized:** 
