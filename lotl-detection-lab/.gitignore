@@ -1,0 +1,10 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Python caches (agar aap scripts use karte hain)
+__pycache__/
+*.pyc
