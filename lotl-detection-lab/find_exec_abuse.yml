@@ -1,0 +1,19 @@
+title: Potential Linux Privilege Escalation or LotL via Find Utility
+id: 8b02e7b1-91a3-4819-bf93-6c845b597d81
+status: experimental
+description: Detects command execution or shell spawning via find utility with -exec parameter.
+author: Ayush
+date: 2026-09-15
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith:
+      - '/find'
+    CommandLine|contains:
+      - ' -exec '
+  condition: selection
+falsepositives:
+  - Legitimate system administration cleanup scripts
+level: medium
