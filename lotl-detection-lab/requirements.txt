@@ -1,0 +1,5 @@
+sigma-cli
+pysigma-backend-elasticsearch
+pysigma-pipeline-elasticsearch
+
+pip3 install -r requirements.txt --break-system-packages
