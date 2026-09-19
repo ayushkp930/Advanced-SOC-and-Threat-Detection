@@ -161,6 +161,4 @@ MemForensics-Automator/
 ## 👨‍💻 Author
 
 **Ayush Kumar Patel**
-BCA in Cloud Security | Cybersecurity Enthusiast
-
 *This project is part of an ongoing hands-on cybersecurity / DFIR portfolio.*
